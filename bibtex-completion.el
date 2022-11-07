@@ -531,7 +531,7 @@ fields listed above) as an alist."
         (setq bibtex-completion-cached-notes-keys
               (let ((tree (org-element-parse-buffer 'headline)))
                 (org-element-map tree 'headline
-                  (lambda (key) (org-element-property :CUSTOM_ID key)))))))
+                  (lambda (key) (org-element-property :ID key)))))))
 
     ;; reparse if necessary
 
@@ -1362,11 +1362,11 @@ the header line."
   (bibtex-completion-notes-global-mode -1)
   (setq-local
    header-line-format nil)
-  (save-buffer)
-  (let ((window (get-buffer-window (get-file-buffer bibtex-completion-notes-path))))
-    (if (and window (not (one-window-p window)))
-        (delete-window window)
-      (switch-to-buffer (other-buffer)))))
+  (save-buffer))
+  ;(let ((window (get-buffer-window (get-file-buffer bibtex-completion-notes-path))))
+  ;  (if (and window (not (one-window-p window)))
+  ;      (delete-window window)
+  ;    (switch-to-buffer (other-buffer)))))
 
 (defun bibtex-completion-fill-template (entry template)
   "Fill TEMPLATE according to info from ENTRY.
